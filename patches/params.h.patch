@@ -1,0 +1,13 @@
+diff --git a/src/kem/ntruprime/pqclean_sntrup761_clean/params.h b/src/kem/ntruprime/pqclean_sntrup761_clean/params.h
+index 4b8adb4..1eb9c0f 100644
+--- a/src/kem/ntruprime/pqclean_sntrup761_clean/params.h
++++ b/src/kem/ntruprime/pqclean_sntrup761_clean/params.h
+@@ -28,7 +28,7 @@
+ #define q27 29235 /* closest integer to 2^27/q */
+ #define q18 57 /* closest integer to 2^18/q */
+ #define q14 4 /* closest integer to 2^14/q */
+-#define p 761
++#define OQS_KEM_NTRUPRIME_p 761
+ #define q 4591
+ #define w 286
+ 

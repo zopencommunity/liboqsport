@@ -1,0 +1,17 @@
+diff --git a/tests/ds_benchmark.h b/tests/ds_benchmark.h
+index 5fd8ff5..329e70b 100644
+--- a/tests/ds_benchmark.h
++++ b/tests/ds_benchmark.h
+@@ -140,9 +140,9 @@ static uint64_t _bench_rdtsc(void) {
+ 	return value;
+ #elif defined(__s390x__)
+ #define USING_TIME_RATHER_THAN_CYCLES
+-	uint64_t tod;
+-	__asm__ volatile("stckf %0\n" : "=Q" (tod) : : "cc");
+-	return (tod * 1000 / 4096);
++	struct timespec time;
++	clock_gettime(CLOCK_REALTIME, &time);
++	return (uint64_t)((double)time.tv_sec * 1e9 + (double)time.tv_nsec);
+ #else
+ #define USING_TIME_RATHER_THAN_CYCLES
+ 	struct timespec time;
