@@ -1,0 +1,12 @@
+diff --git a/src/kem/ntruprime/pqclean_sntrup761_clean/crypto_core_mult3sntrup761.c b/src/kem/ntruprime/pqclean_sntrup761_clean/crypto_core_mult3sntrup761.c
+index b25892b..fe9256d 100644
+--- a/src/kem/ntruprime/pqclean_sntrup761_clean/crypto_core_mult3sntrup761.c
++++ b/src/kem/ntruprime/pqclean_sntrup761_clean/crypto_core_mult3sntrup761.c
+@@ -1,6 +1,7 @@
+ #include "crypto_core_mult3sntrup761.h"
+ #include "params.h"
+ 
++#define p OQS_KEM_NTRUPRIME_p
+ 
+ #define int8 int8_t
+ #define int16 int16_t

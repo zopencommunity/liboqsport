@@ -1,0 +1,134 @@
+# bump: liboqs-version /LIBOQS_VERSION="(.*)"/ https://github.com/open-quantum-safe/liboqs/archive/refs/tags/0.15.0-rc1.tar.gz|semver:*
+# LIBOQS_VERSION="V.R.M"
+
+###
+### Build control file for the liboqs port
+###
+
+###
+### Required Environment Variables
+###
+export ZOPEN_BUILD_LINE="DEV"
+export ZOPEN_STABLE_URL="https://github.com/open-quantum-safe/liboqs/archive/refs/tags/0.15.0-rc1.tar.gz"
+export ZOPEN_STABLE_DEPS="cmake curl openssl"
+export ZOPEN_DEV_URL="https://github.com/open-quantum-safe/liboqs.git"
+export ZOPEN_DEV_DEPS="cmake curl git openssl make automake autoconf libtool m4 sed grep diffutils coreutils"
+export ZOPEN_CATEGORIES="library"
+export ZOPEN_RUNTIME_DEPS=""
+export ZOPEN_CLEAN="skip"
+export ZOPEN_NO_BIN=1
+# export ZOPEN_SYSTEM_PREREQ="zos25" # optional system pre-req (default=zos25)
+
+
+###
+### Build settings (Port type: BUILD, Build system: CMake)
+###
+### Settings for CMake build system
+export ZOPEN_CONFIGURE="cmake"
+export ZOPEN_CONFIGURE_OPTS="-B ../build -DCMAKE_INSTALL_PREFIX=\${ZOPEN_INSTALL_DIR} -DOPENSSL_ROOT_DIR=\$OPENSSL_HOME"
+export ZOPEN_MAKE="make"
+export ZOPEN_MAKE_OPTS="-C ../build"
+export ZOPEN_INSTALL="make"
+export ZOPEN_INSTALL_OPTS="install -C ../build"
+# ZOPEN_CHECK is often 'ctest' or a custom function.
+#export ZOPEN_CHECK="ctest"
+#export ZOPEN_CHECK_OPTS="--test-dir ../build --output-on-failure"
+
+
+###
+### Required user-supplied functions
+###
+
+zopen_check_results() {
+  dir="$1" 
+  pfx="$2" 
+  chk="$1/$2_check.log"
+  # Add logic to extract the test results here:
+  echo "actualFailures:0" 
+  echo "totalTests:1" 
+  echo "expectedFailures:0"
+  echo "expectedTotalTests:1"
+}
+
+zopen_get_version() {
+  echo "1.0.0" # Modify to echo the version of your tool/library
+}
+
+
+###
+### Custom Build Logic (if applicable)
+###
+# For libraries, this hook exports variables for other ports to use.
+#zopen_append_to_env() {
+#  cat <<END
+#if [ ! -z "\$ZOPEN_IN_ZOPEN_BUILD" ]; then
+#  export ZOPEN_EXTRA_CFLAGS="\${ZOPEN_EXTRA_CFLAGS} -I\${PWD}/include"
+#  export ZOPEN_EXTRA_CXXFLAGS="\${ZOPEN_EXTRA_CXXFLAGS} -I\${PWD}/include"
+#  export ZOPEN_EXTRA_LDFLAGS="\${ZOPEN_EXTRA_LDFLAGS} -L\${PWD}/lib"
+#  export ZOPEN_EXTRA_LIBS="\${ZOPEN_EXTRA_LIBS} -lliboqs"
+#fi
+#END
+
+###
+### Optional User-Supplied Hooks (uncomment to use)
+###
+
+#zopen_append_to_env() {
+#  ## This function runs as part of generation of the .env file. The output of the
+#  ## function is appended to .env.
+#}
+#
+#zopen_append_to_setup(){
+#  ## This function runs as part of generation of the setup.sh file. The output of
+#  ## the function is appended to setup.sh.
+#}
+#
+#zopen_append_to_validate_install(){
+#  ## This function runs as part of generation of the install_test.sh file. The
+#  ## output of the function is appended to install_test.sh script.
+#}
+#
+#zopen_install_caveats(){
+#  ## This function is run post install. All stdout messages are captured and
+#  ## added to the metadata.json as installation caveats.
+#}
+#
+zopen_init(){
+  ## This function runs after code is downloaded and patched but before the code
+  ## is built.
+  mkdir -p ../build
+}
+#
+#zopen_post_buildenv(){
+#  ## This function runs after the 'buildenv' is processed.
+#}
+#
+#zopen_pre_build(){
+#  ## This function runs before the 'make' step of the build is run.
+#}
+#
+#zopen_pre_check(){
+#  ## This function runs before the 'check' step of the build is run.
+#}
+#
+#zopen_pre_configure(){
+#  ## This function runs before the 'configure' step of the build is run.
+#}
+#
+#zopen_pre_install(){
+#  ## This function runs before the 'install' step of the build is run.
+#}
+#
+zopen_post_install() {
+  ## This function runs after the 'install' step of the build is run.
+  :
+}
+#
+#zopen_pre_patch(){
+#  ## This function runs before the 'patch' step of the build is run.
+#}
+#
+#zopen_pre_terminate(){
+#  ## This function runs before 'zopen build' terminates.
+#}
+

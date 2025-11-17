@@ -1,0 +1,15 @@
+diff --git a/src/common/common.c b/src/common/common.c
+index 0554a94..884043b 100644
+--- a/src/common/common.c
++++ b/src/common/common.c
+@@ -19,7 +19,9 @@
+ #include <pthread.h>
+ #endif
+ 
+-#if !defined(OQS_HAVE_POSIX_MEMALIGN) || defined(__MINGW32__) || defined(__MINGW64__) || defined(_MSC_VER)
++#if defined(__MVS__)
++#include <stdlib.h>
++#elif !defined(OQS_HAVE_POSIX_MEMALIGN) || defined(__MINGW32__) || defined(__MINGW64__) || defined(_MSC_VER)
+ #include <malloc.h>
+ #endif
+ 
